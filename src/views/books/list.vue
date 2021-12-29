@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParam" ref="queryForm" :inline="true">
-      <el-form-item label="用户名：">
-        <el-input v-model="queryParam.userName"></el-input>
+      <el-form-item label="图书名：">
+        <el-input v-model="queryParam.name"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm">查询</el-button>
@@ -16,10 +16,10 @@
       <el-table-column prop="id" label="Id" />
 <!--      <el-table-column prop="userName" label="用户名"/>-->
       <el-table-column prop="bookType" label="图书类别" />
-      <el-table-column prop="bookNmae" label="图书名称"  :formatter="levelFormatter"/>
+      <el-table-column prop="name" label="图书名称" />
 <!--      <el-table-column prop="sex" label="性别" width="60px;" :formatter="sexFormatter"/>-->
-      <el-table-column prop=bookDesc label="内容简介"/>
-      <el-table-column prop="createTime" label="上架时间" width="160px"/>
+      <el-table-column prop=brand label="价格"/>
+<!--      <el-table-column prop="createTime" label="上架时间" width="160px"/>-->
       <el-table-column label="状态" prop="status" width="70px">
         <template slot-scope="{row}">
           <el-tag :type="statusTagFormatter(row.status)">
@@ -51,13 +51,14 @@
 import { mapGetters, mapState } from 'vuex'
 import Pagination from '@/components/Pagination'
 import userApi from '@/api/user'
+import bookApi from '@/api/book'
 
 export default {
   components: { Pagination },
   data () {
     return {
       queryParam: {
-        userName: '',
+        name: '',
         role: 1,
         pageIndex: 1,
         pageSize: 10
@@ -73,7 +74,7 @@ export default {
   methods: {
     search () {
       this.listLoading = true
-      userApi.getUserPageList(this.queryParam).then(data => {
+      bookApi.pageList(this.queryParam).then(data => {
         const re = data.response
         this.tableData = re.list
         this.total = re.total
