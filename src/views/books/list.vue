@@ -84,7 +84,7 @@ export default {
     },
     changeStatus (row) {
       let _this = this
-      userApi.changeStatus(row.id).then(re => {
+      bookApi.changeStatus(row.id).then(re => {
         if (re.code === 1) {
           row.status = re.response
           _this.$message.success(re.message)

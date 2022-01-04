@@ -8,25 +8,25 @@
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
-              图书总数
+              管理员总数
             </div>
-            <count-to :start-val="0" :end-val="examPaperCount" :duration="2600" class="card-panel-num" v-loading="loading"/>
+            <count-to :start-val="0" :end-val="userCount" :duration="2600" class="card-panel-num" v-loading="loading"/>
           </div>
         </div>
       </el-col>
-      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-        <div class="card-panel" >
-          <div class="card-panel-icon-wrapper icon-message">
-            <svg-icon icon-class="question" class-name="card-panel-icon"/>
-          </div>
-          <div class="card-panel-description">
-            <div class="card-panel-text">
-              用户总数
-            </div>
-            <count-to :start-val="0" :end-val="questionCount" :duration="3000" class="card-panel-num" v-loading="loading"/>
-          </div>
-        </div>
-      </el-col>
+<!--      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">-->
+<!--        <div class="card-panel" >-->
+<!--          <div class="card-panel-icon-wrapper icon-message">-->
+<!--            <svg-icon icon-class="question" class-name="card-panel-icon"/>-->
+<!--          </div>-->
+<!--          <div class="card-panel-description">-->
+<!--            <div class="card-panel-text">-->
+<!--              学生总数-->
+<!--            </div>-->
+<!--            <count-to :start-val="0" :end-val="studentCount" :duration="3000" class="card-panel-num" v-loading="loading"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </el-col>-->
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-shopping">
@@ -34,25 +34,25 @@
           </div>
           <div class="card-panel-description">
             <div class="card-panel-text">
-              借阅总数
+              图书总数
             </div>
-            <count-to :start-val="0" :end-val="doExamPaperCount" :duration="3600" class="card-panel-num" v-loading="loading"/>
+            <count-to :start-val="0" :end-val="bookCount" :duration="3600" class="card-panel-num" v-loading="loading"/>
           </div>
         </div>
       </el-col>
-      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-        <div class="card-panel">
-          <div class="card-panel-icon-wrapper icon-money">
-            <svg-icon icon-class="doquestion" class-name="card-panel-icon"/>
-          </div>
-          <div class="card-panel-description">
-            <div class="card-panel-text">
-              当日借阅数
-            </div>
-            <count-to :start-val="0" :end-val="doQuestionCount" :duration="3200" class="card-panel-num" v-loading="loading"/>
-          </div>
-        </div>
-      </el-col>
+<!--      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">-->
+<!--        <div class="card-panel">-->
+<!--          <div class="card-panel-icon-wrapper icon-money">-->
+<!--            <svg-icon icon-class="doquestion" class-name="card-panel-icon"/>-->
+<!--          </div>-->
+<!--          <div class="card-panel-description">-->
+<!--            <div class="card-panel-text">-->
+<!--              任务总数-->
+<!--            </div>-->
+<!--            <count-to :start-val="0" :end-val="doQuestionCount" :duration="3200" class="card-panel-num" v-loading="loading"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </el-col>-->
     </el-row>
     <el-row class="echarts-line">
       <div id="echarts-moth-user" style="width: 100%;height:400px;" v-loading="loading"/>
@@ -74,9 +74,9 @@ export default {
   },
   data () {
     return {
-      examPaperCount: 0,
-      questionCount: 0,
-      doExamPaperCount: 0,
+      userCount: 0,
+      studentCount: 0,
+      bookCount: 0,
       doQuestionCount: 0,
       echartsUserAction: null,
       echartsQuestion: null,
@@ -92,12 +92,12 @@ export default {
     this.loading = true
     dashboardApi.index().then(re => {
       let response = re.response
-      _this.examPaperCount = response.examPaperCount
-      _this.questionCount = response.questionCount
-      _this.doExamPaperCount = response.doExamPaperCount
+      _this.userCount = response.userCount
+      _this.studentCount = response.studentCount
+      _this.bookCount = response.bookCount
       _this.doQuestionCount = response.doQuestionCount
-      _this.echartsUserAction.setOption(this.option('用户活跃度', '{b}日{c}度', response.mothDayText, response.mothDayUserActionValue))
-      _this.echartsQuestion.setOption(this.option('借阅日数量', '{b}日{c}题', response.mothDayText, response.mothDayDoExamQuestionValue))
+      _this.echartsUserAction.setOption(this.option('用户活跃度', '{b}日{c}人次', response.mothDayText, response.mothDayUserActionValue))
+      _this.echartsQuestion.setOption(this.option('图书数量趋势', '{b}日{c}本', response.mothDayText, response.mothDayDoExamQuestionValue))
       this.loading = false
     })
   },
