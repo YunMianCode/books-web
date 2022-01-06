@@ -95,6 +95,13 @@ const constantRoutes = [
         name: 'BooksEdit',
         meta: { title: '图书编辑', noCache: true, activeMenu: '/exam/books/list' },
         hidden: true
+      },
+      {
+        path: 'detail',
+        component: () => import('@/views/books/detail'),
+        name: 'BooksDetail',
+        meta: { title: '图书详情', noCache: true, activeMenu: '/exam/books/list' },
+        hidden: true
       }
     ]
   },

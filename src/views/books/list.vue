@@ -14,12 +14,12 @@
 
     <el-table v-loading="listLoading" :data="tableData" border fit highlight-current-row style="width: 100%">
       <el-table-column prop="id" label="Id" />
-<!--      <el-table-column prop="userName" label="用户名"/>-->
-      <el-table-column prop="bookType" label="图书类别" />
       <el-table-column prop="name" label="图书名称" />
-<!--      <el-table-column prop="sex" label="性别" width="60px;" :formatter="sexFormatter"/>-->
-      <el-table-column prop=brand label="价格"/>
-<!--      <el-table-column prop="createTime" label="上架时间" width="160px"/>-->
+<!--      <el-table-column prop="detailCat" label="详细分类" />-->
+      <el-table-column prop="cat" label="图书类别" />
+<!--      <el-table-column prop="image" label="图书图片" />-->
+      <el-table-column prop="price" label="价格"/>
+<!--      <el-table-column prop="lastCrawlTime" label="更新时间" width="160px"/>-->
       <el-table-column label="状态" prop="status" width="70px">
         <template slot-scope="{row}">
           <el-tag :type="statusTagFormatter(row.status)">
@@ -32,12 +32,12 @@
           <el-button size="mini"  @click="changeStatus(row)" class="link-left">
             {{ statusBtnFormatter(row.status) }}
           </el-button>
-          <router-link :to="{path:'/user/student/edit', query:{id:row.id}}" class="link-left">
-            <el-button size="mini" >编辑</el-button>
+          <router-link :to="{path:'/books/detail', query:{id:row.id}}" class="link-left">
+            <el-button size="mini" >详情</el-button>
           </router-link>
-          <router-link :to="{path:'/log/user/list', query:{userId:row.id}}" class="link-left">
-            <el-button size="mini" >日志</el-button>
-          </router-link>
+<!--          <router-link :to="{path:'/log/user/list', query:{userId:row.id}}" class="link-left">-->
+<!--            <el-button size="mini" >日志</el-button>-->
+<!--          </router-link>-->
           <el-button  size="mini" type="danger" @click="deleteUser(row)" class="link-left">删除</el-button>
         </template>
       </el-table-column>

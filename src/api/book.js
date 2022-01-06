@@ -5,5 +5,7 @@ export default {
   edit: query => post('/api/admin/books/edit', query),
   select: id => post('/api/book/page/list' + id),
   changeStatus: id => post('/api/book/changeStatus/' + id),
-  deletePaper: id => post('/api/admin/books/delete/' + id)
+  deletePaper: id => post('/api/admin/books/delete/' + id),
+  selectBook: id => post('/api/book/select/' + id),
+  createBook: query => post('/api/book/edit', query)
 }
